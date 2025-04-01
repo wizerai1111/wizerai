@@ -399,7 +399,7 @@ function App() {
               onClick={() => setIsFormOpen(true)}
               className="bg-white text-[#0052CC] hover:bg-gray-100 px-8 py-3 rounded-full font-semibold transition-colors shadow-lg"
             >
-              Schedule Demo
+              Contact Us
             </button>
           </div>
         </nav>
@@ -416,7 +416,7 @@ function App() {
               onClick={() => setIsFormOpen(true)}
               className="bg-[#FF5630] hover:bg-[#FF7452] px-10 py-5 rounded-full font-semibold text-xl inline-flex items-center space-x-3 transition-colors shadow-lg"
             >
-              <span>Schedule Your Demo Today</span>
+              <span>Contact Us Today</span>
               <ArrowRight className="h-6 w-6" />
             </button>
           </div>
@@ -757,7 +757,7 @@ function App() {
             onClick={() => setIsFormOpen(true)}
             className="bg-[#FF5630] hover:bg-[#FF7452] px-12 py-6 rounded-full font-semibold text-xl inline-flex items-center space-x-3 transition-colors shadow-lg"
           >
-            <span>Schedule Your Demo Today</span>
+            <span>Contact Us Today</span>
             <ArrowRight className="h-6 w-6" />
           </button>
         </div>
