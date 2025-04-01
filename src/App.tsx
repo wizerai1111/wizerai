@@ -627,11 +627,11 @@ function App() {
           <h2 className="text-4xl font-bold text-center mb-16 text-[#42526E]">
             Our Current Projects
           </h2>
-          <div className="grid md:grid-cols-2 gap-16">
+          <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-gray-50 p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow">
               <div className="flex items-center gap-3 mb-6">
                 <Heart className="h-8 w-8 text-[#FF5630]" />
-                <h3 className="text-3xl font-bold text-[#42526E]">ForeverLoved</h3>
+                <h3 className="text-3xl font-bold text-[#42526E]">Forever Loved</h3>
               </div>
               <p className="text-gray-600 text-lg mb-6 leading-relaxed">
                 A groundbreaking AI platform that preserves the essence of loved ones through advanced cloning technology. Using our secure vector database, we create an interactive digital legacy that allows future generations to connect with their ancestors in meaningful ways.
@@ -680,6 +680,34 @@ function App() {
                 <li className="flex items-center gap-3 text-lg">
                   <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                   Detailed conversation reports for further exploration
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow">
+              <div className="flex items-center gap-3 mb-6">
+                <Heart className="h-8 w-8 text-[#FF5630]" />
+                <h3 className="text-3xl font-bold text-[#42526E]">The Kindness App</h3>
+              </div>
+              <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                A transformative platform revolutionizing charitable giving through blockchain technology. We connect donors, recipients, and local businesses to create a seamless cycle of giving, focusing on transparency, accessibility, and real-time impact tracking.
+              </p>
+              <ul className="space-y-4 text-gray-600">
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Blockchain-powered transparent transactions
+                </li>
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Multi-platform support for restaurants and donors
+                </li>
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Cryptocurrency and Kindness Token integration
+                </li>
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Real-time impact tracking and reporting
                 </li>
               </ul>
             </div>
