@@ -13,7 +13,9 @@ import {
   Lock,
   Calendar,
   FileText,
-  TrendingUp
+  TrendingUp,
+  Heart,
+  BookOpen
 } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
@@ -26,6 +28,7 @@ import 'swiper/css/navigation';
 
 function ContactForm({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const modalRef = useRef<HTMLDivElement>(null);
+  const phoneInputRef = useRef<any>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -72,12 +75,19 @@ function ContactForm({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
       const { error: submitError } = await supabase
         .from('demo_requests')
         .insert([{
-          ...formData,
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
           phone: cleanPhone,
-          status: 'pending'
+          message: formData.message || null,
+          status: 'pending',
+          created_at: new Date().toISOString()
         }]);
 
-      if (submitError) throw submitError;
+      if (submitError) {
+        console.error('Supabase error:', submitError);
+        throw submitError;
+      }
 
       onClose();
       alert('Thank you! We will contact you shortly to schedule your demo.');
@@ -89,6 +99,7 @@ function ContactForm({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
         message: ''
       });
     } catch (err) {
+      console.error('Form submission error:', err);
       setError(err instanceof Error ? err.message : 'An error occurred while submitting your request');
     } finally {
       setIsSubmitting(false);
@@ -195,74 +206,74 @@ function ContactForm({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 
 function BusinessDescription() {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-24 bg-white">
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-12 text-[#42526E]">
+        <h2 className="text-4xl font-bold text-center mb-16 text-[#42526E]">
           Revolutionize Your Business with AI-Powered Data Solutions
         </h2>
         
-        <div className="grid md:grid-cols-2 gap-12 mb-16">
-          <div className="space-y-6">
+        <div className="grid md:grid-cols-2 gap-16 mb-24">
+          <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-[#42526E]">
-                <Lock className="h-6 w-6 text-[#0052CC]" />
+              <h3 className="text-2xl font-semibold mb-6 flex items-center gap-3 text-[#42526E]">
+                <Lock className="h-7 w-7 text-[#0052CC]" />
                 Secure Vector Database
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600 mb-6 text-lg leading-relaxed">
                 At the heart of our AI solutions lies our cutting-edge secure vector database, designed to safeguard your company's most valuable asset - data. Our system employs state-of-the-art encryption and access controls to ensure your information remains protected.
               </p>
-              <div className="mb-6">
+              <div className="mb-8">
                 <img 
                   src="https://seeklogo.com/images/S/supabase-logo-DCC676FFE2-seeklogo.com.png"
                   alt="Supabase"
-                  className="h-8 object-contain"
+                  className="h-10 object-contain"
                 />
               </div>
-              <ul className="space-y-2 text-gray-600">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+              <ul className="space-y-4 text-gray-600">
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                   Advanced encryption for data at rest and in transit
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                   Role-based access control (RBAC)
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                   TLS protocol implementation
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                   Compliance with GDPR, CCPA, and HIPAA
                 </li>
               </ul>
             </div>
           </div>
           
-          <div className="space-y-6">
+          <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-[#42526E]">
-                <Bot className="h-6 w-6 text-[#0052CC]" />
+              <h3 className="text-2xl font-semibold mb-6 flex items-center gap-3 text-[#42526E]">
+                <Bot className="h-7 w-7 text-[#0052CC]" />
                 Intelligent Chatbots
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600 mb-6 text-lg leading-relaxed">
                 Elevate your customer interactions with our AI-powered chatbots, seamlessly integrated across your website, WhatsApp, Telegram, and email channels.
               </p>
-              <ul className="space-y-2 text-gray-600">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+              <ul className="space-y-4 text-gray-600">
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                   24/7 customer support
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                   Reduced bounce rates
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                   Valuable user data collection
                 </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                   Enhanced SEO performance
                 </li>
               </ul>
@@ -270,83 +281,51 @@ function BusinessDescription() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-16">
           <div>
-            <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-[#42526E]">
-              <Calendar className="h-6 w-6 text-[#0052CC]" />
+            <h3 className="text-2xl font-semibold mb-6 flex items-center gap-3 text-[#42526E]">
+              <Calendar className="h-7 w-7 text-[#0052CC]" />
               Streamlined Appointment Scheduling
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-600 mb-6 text-lg leading-relaxed">
               Empower your clients with effortless booking capabilities. Our AI scheduling system integrates with your existing calendar to:
             </p>
-            <ul className="space-y-2 text-gray-600">
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+            <ul className="space-y-4 text-gray-600">
+              <li className="flex items-center gap-3 text-lg">
+                <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                 Offer real-time availability
               </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+              <li className="flex items-center gap-3 text-lg">
+                <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                 Send automated reminders
               </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+              <li className="flex items-center gap-3 text-lg">
+                <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                 Allow easy rescheduling
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-[#42526E]">
-              <FileText className="h-6 w-6 text-[#0052CC]" />
+            <h3 className="text-2xl font-semibold mb-6 flex items-center gap-3 text-[#42526E]">
+              <FileText className="h-7 w-7 text-[#0052CC]" />
               Comprehensive Session Reports
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-600 mb-6 text-lg leading-relaxed">
               After each interaction, our AI generates detailed session summary reports, providing valuable insights into customer engagements.
             </p>
-            <ul className="space-y-2 text-gray-600">
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+            <ul className="space-y-4 text-gray-600">
+              <li className="flex items-center gap-3 text-lg">
+                <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                 Key takeaways and progress tracking
               </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+              <li className="flex items-center gap-3 text-lg">
+                <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                 Action steps and follow-ups
               </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
+              <li className="flex items-center gap-3 text-lg">
+                <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
                 Continuous improvement insights
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-12">
-          <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2 text-[#42526E]">
-            <TrendingUp className="h-6 w-6 text-[#0052CC]" />
-            Information Gathering and Analysis
-          </h3>
-          <p className="text-gray-600 mb-4">
-            Harness the power of AI to collect and analyze data across your entire business ecosystem.
-          </p>
-          <div className="grid md:grid-cols-2 gap-6">
-            <ul className="space-y-2 text-gray-600">
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
-                Identify customer behavior patterns
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
-                AI-driven keyword research
-              </li>
-            </ul>
-            <ul className="space-y-2 text-gray-600">
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
-                Generate strategic content ideas
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-[#00B8D9]" />
-                Analyze competitor strategies
               </li>
             </ul>
           </div>
@@ -384,32 +363,28 @@ function App() {
 
   const clientLogos = [
     {
-      name: "TD Bank",
-      url: "https://1000logos.net/wp-content/uploads/2018/06/TD-Bank-Logo.png"
-    },
-    {
       name: "BMO",
-      url: "https://1000logos.net/wp-content/uploads/2020/04/BMO-Logo.png"
-    },
-    {
-      name: "Telus",
-      url: "https://1000logos.net/wp-content/uploads/2021/08/TELUS-Logo.png"
-    },
-    {
-      name: "Mercer",
-      url: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Mercer_Logo.png"
-    },
-    {
-      name: "Sovereign Bank",
-      url: "https://companieslogo.com/img/orig/SOVB-f6b9f910.png"
-    },
-    {
-      name: "Sunlife",
-      url: "https://1000logos.net/wp-content/uploads/2021/08/Sun-Life-Logo.png"
+      url: "/images/clients/bmo.png"
     },
     {
       name: "Manulife",
-      url: "https://1000logos.net/wp-content/uploads/2021/08/Manulife-Logo.png"
+      url: "/images/clients/Manulife.png"
+    },
+    {
+      name: "Mercer",
+      url: "/images/clients/Mercer.png"
+    },
+    {
+      name: "Sovereign Bank",
+      url: "/images/clients/sovereign.png"
+    },
+    {
+      name: "Sunlife",
+      url: "/images/clients/sunlife.png"
+    },
+    {
+      name: "Telus",
+      url: "/images/clients/Telus.png"
     }
   ];
 
@@ -417,42 +392,167 @@ function App() {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <header className="bg-gradient-to-r from-[#0052CC] to-[#00B8D9] text-white">
-        <nav className="container mx-auto px-6 py-4">
+        <nav className="container mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
-            <WizerLogo className="h-10" />
+            <WizerLogo className="h-12" />
             <button 
               onClick={() => setIsFormOpen(true)}
-              className="bg-[#FF5630] hover:bg-[#FF7452] px-6 py-2 rounded-full font-semibold transition-colors"
+              className="bg-white text-[#0052CC] hover:bg-gray-100 px-8 py-3 rounded-full font-semibold transition-colors shadow-lg"
             >
               Schedule Demo
             </button>
           </div>
         </nav>
         
-        <div className="container mx-auto px-6 py-24">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-5xl font-bold mb-6">
+        <div className="container mx-auto px-6 py-32">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-6xl font-bold mb-8 leading-tight">
               Transform Your Customer Service with AI-Powered Solutions
             </h1>
-            <p className="text-xl mb-8 text-gray-100">
+            <p className="text-xl mb-12 text-gray-100 leading-relaxed">
               Provide personalized customer experiences on every platform using AI solutions that can be fully customized to fit your business.
             </p>
             <button 
               onClick={() => setIsFormOpen(true)}
-              className="bg-[#FF5630] hover:bg-[#FF7452] px-8 py-4 rounded-full font-semibold text-lg inline-flex items-center space-x-2 transition-colors"
+              className="bg-[#FF5630] hover:bg-[#FF7452] px-10 py-5 rounded-full font-semibold text-xl inline-flex items-center space-x-3 transition-colors shadow-lg"
             >
               <span>Schedule Your Demo Today</span>
-              <ArrowRight className="h-5 w-5" />
+              <ArrowRight className="h-6 w-6" />
             </button>
           </div>
         </div>
       </header>
 
       {/* Business Description */}
-      <BusinessDescription />
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-center mb-16 text-[#42526E]">
+            Revolutionize Your Business with AI-Powered Data Solutions
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-16 mb-24">
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-semibold mb-6 flex items-center gap-3 text-[#42526E]">
+                  <Lock className="h-7 w-7 text-[#0052CC]" />
+                  Secure Vector Database
+                </h3>
+                <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+                  At the heart of our AI solutions lies our cutting-edge secure vector database, designed to safeguard your company's most valuable asset - data. Our system employs state-of-the-art encryption and access controls to ensure your information remains protected.
+                </p>
+                <div className="mb-8">
+                  <img 
+                    src="https://seeklogo.com/images/S/supabase-logo-DCC676FFE2-seeklogo.com.png"
+                    alt="Supabase"
+                    className="h-10 object-contain"
+                  />
+                </div>
+                <ul className="space-y-4 text-gray-600">
+                  <li className="flex items-center gap-3 text-lg">
+                    <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                    Advanced encryption for data at rest and in transit
+                  </li>
+                  <li className="flex items-center gap-3 text-lg">
+                    <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                    Role-based access control (RBAC)
+                  </li>
+                  <li className="flex items-center gap-3 text-lg">
+                    <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                    TLS protocol implementation
+                  </li>
+                  <li className="flex items-center gap-3 text-lg">
+                    <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                    Compliance with GDPR, CCPA, and HIPAA
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-semibold mb-6 flex items-center gap-3 text-[#42526E]">
+                  <Bot className="h-7 w-7 text-[#0052CC]" />
+                  Intelligent Chatbots
+                </h3>
+                <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+                  Elevate your customer interactions with our AI-powered chatbots, seamlessly integrated across your website, WhatsApp, Telegram, and email channels.
+                </p>
+                <ul className="space-y-4 text-gray-600">
+                  <li className="flex items-center gap-3 text-lg">
+                    <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                    24/7 customer support
+                  </li>
+                  <li className="flex items-center gap-3 text-lg">
+                    <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                    Reduced bounce rates
+                  </li>
+                  <li className="flex items-center gap-3 text-lg">
+                    <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                    Valuable user data collection
+                  </li>
+                  <li className="flex items-center gap-3 text-lg">
+                    <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                    Enhanced SEO performance
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-16">
+            <div>
+              <h3 className="text-2xl font-semibold mb-6 flex items-center gap-3 text-[#42526E]">
+                <Calendar className="h-7 w-7 text-[#0052CC]" />
+                Streamlined Appointment Scheduling
+              </h3>
+              <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+                Empower your clients with effortless booking capabilities. Our AI scheduling system integrates with your existing calendar to:
+              </p>
+              <ul className="space-y-4 text-gray-600">
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Offer real-time availability
+                </li>
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Send automated reminders
+                </li>
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Allow easy rescheduling
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-semibold mb-6 flex items-center gap-3 text-[#42526E]">
+                <FileText className="h-7 w-7 text-[#0052CC]" />
+                Comprehensive Session Reports
+              </h3>
+              <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+                After each interaction, our AI generates detailed session summary reports, providing valuable insights into customer engagements.
+              </p>
+              <ul className="space-y-4 text-gray-600">
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Key takeaways and progress tracking
+                </li>
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Action steps and follow-ups
+                </li>
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Continuous improvement insights
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Slideshow Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold text-center mb-16 text-[#42526E]">
             What We Do
@@ -464,20 +564,20 @@ function App() {
             navigation
             pagination={{ clickable: true }}
             autoplay={{ delay: 5000 }}
-            className="rounded-xl overflow-hidden shadow-xl"
+            className="rounded-2xl overflow-hidden shadow-2xl"
           >
             {slides.map((slide, index) => (
               <SwiperSlide key={index}>
-                <div className="relative h-[500px]">
+                <div className="relative h-[600px]">
                   <img
                     src={slide.image}
                     alt={slide.title}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-                    <div className="p-8 text-white">
-                      <h3 className="text-3xl font-bold mb-4">{slide.title}</h3>
-                      <p className="text-xl">{slide.description}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end">
+                    <div className="p-12 text-white">
+                      <h3 className="text-4xl font-bold mb-6">{slide.title}</h3>
+                      <p className="text-2xl">{slide.description}</p>
                     </div>
                   </div>
                 </div>
@@ -488,7 +588,7 @@ function App() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold text-center mb-16 text-[#42526E]">
             Why Choose Wizer AI?
@@ -496,43 +596,118 @@ function App() {
           <div className="grid md:grid-cols-3 gap-12">
             {[
               {
-                icon: <Bot className="h-8 w-8 text-[#0052CC]" />,
+                icon: <Bot className="h-10 w-10 text-[#0052CC]" />,
                 title: "Customizable AI Solutions",
                 description: "Tailored solutions that reflect your brand's unique voice and knowledge base."
               },
               {
-                icon: <Globe2 className="h-8 w-8 text-[#0052CC]" />,
+                icon: <Globe2 className="h-10 w-10 text-[#0052CC]" />,
                 title: "Multi-Platform Integration",
                 description: "Seamlessly deploy across websites, WhatsApp, Telegram, and more."
               },
               {
-                icon: <Zap className="h-8 w-8 text-[#0052CC]" />,
+                icon: <Zap className="h-10 w-10 text-[#0052CC]" />,
                 title: "Enhanced Efficiency",
                 description: "Automate routine inquiries while maintaining personalized interactions."
               }
             ].map((feature, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl shadow-lg">
-                <div className="mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold mb-3 text-[#42526E]">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+              <div key={index} className="bg-white p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow">
+                <div className="mb-6">{feature.icon}</div>
+                <h3 className="text-2xl font-semibold mb-4 text-[#42526E]">{feature.title}</h3>
+                <p className="text-gray-600 text-lg">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Trusted By Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Current Projects Section */}
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-4 text-[#42526E]">
+          <h2 className="text-4xl font-bold text-center mb-16 text-[#42526E]">
+            Our Current Projects
+          </h2>
+          <div className="grid md:grid-cols-2 gap-16">
+            <div className="bg-gray-50 p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow">
+              <div className="flex items-center gap-3 mb-6">
+                <Heart className="h-8 w-8 text-[#FF5630]" />
+                <h3 className="text-3xl font-bold text-[#42526E]">ForeverLoved</h3>
+              </div>
+              <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                A groundbreaking AI platform that preserves the essence of loved ones through advanced cloning technology. Using our secure vector database, we create an interactive digital legacy that allows future generations to connect with their ancestors in meaningful ways.
+              </p>
+              <ul className="space-y-4 text-gray-600">
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  AI-powered voice and personality cloning
+                </li>
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Interactive timeline with photos and videos
+                </li>
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Natural conversation about life experiences
+                </li>
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Secure storage of personal memories and stories
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow">
+              <div className="flex items-center gap-3 mb-6">
+                <BookOpen className="h-8 w-8 text-[#FF5630]" />
+                <h3 className="text-3xl font-bold text-[#42526E]">GuruAI</h3>
+              </div>
+              <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                An unbiased AI chatbot that explores the rich tapestry of human wisdom across religions, philosophies, and ancient civilizations. By analyzing millions of data points, GuruAI provides comprehensive insights while maintaining neutrality.
+              </p>
+              <ul className="space-y-4 text-gray-600">
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Vast knowledge base of religious and philosophical texts
+                </li>
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Cross-cultural analysis of universal themes
+                </li>
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Non-judgmental information presentation
+                </li>
+                <li className="flex items-center gap-3 text-lg">
+                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9]" />
+                  Detailed conversation reports for further exploration
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trusted By Section */}
+      <section className="py-24 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-6 text-[#42526E]">
             Some of Our Past Clients
           </h2>
-          <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+          <p className="text-center text-gray-600 mb-16 max-w-3xl mx-auto text-lg">
             We've had the privilege of working with a diverse range of businesses, helping them integrate advanced AI solutions to improve their customer interactions and operations.
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 items-center justify-items-center">
             {clientLogos.map((client, index) => (
-              <div key={index} className="w-full max-w-[200px] h-[80px] flex items-center justify-center p-4 bg-white rounded-lg shadow-md">
+              <div 
+                key={index} 
+                className={`w-full flex items-center justify-center ${
+                  client.name === 'Sovereign Bank'
+                    ? 'max-w-[400px] h-[160px]'
+                    : ['BMO', 'Sunlife', 'Telus'].includes(client.name)
+                      ? 'max-w-[300px] h-[120px]'
+                      : 'max-w-[200px] h-[80px]'
+                }`}
+              >
                 <img
                   src={client.url}
                   alt={`${client.name} logo`}
@@ -546,7 +721,7 @@ function App() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-4xl font-bold text-center mb-16 text-[#42526E]">
@@ -559,9 +734,9 @@ function App() {
                 "Instant Response to Customer Queries",
                 "Seamless Integration with Existing Systems"
               ].map((benefit, index) => (
-                <div key={index} className="flex items-center space-x-4">
-                  <CheckCircle2 className="h-6 w-6 text-[#00B8D9] flex-shrink-0" />
-                  <span className="text-lg text-gray-700">{benefit}</span>
+                <div key={index} className="flex items-center space-x-6">
+                  <CheckCircle2 className="h-8 w-8 text-[#00B8D9] flex-shrink-0" />
+                  <span className="text-xl text-gray-700">{benefit}</span>
                 </div>
               ))}
             </div>
@@ -570,20 +745,20 @@ function App() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-[#0052CC] text-white py-20">
+      <section className="bg-[#0052CC] text-white py-24">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold mb-6">
+          <h2 className="text-4xl font-bold mb-8">
             Ready to Transform Your Customer Service?
           </h2>
-          <p className="text-xl mb-8 text-gray-100 max-w-2xl mx-auto">
+          <p className="text-xl mb-12 text-gray-100 max-w-2xl mx-auto">
             Join leading companies that have revolutionized their customer experience with Wizer AI.
           </p>
           <button 
             onClick={() => setIsFormOpen(true)}
-            className="bg-[#FF5630] hover:bg-[#FF7452] px-8 py-4 rounded-full font-semibold text-lg inline-flex items-center space-x-2 transition-colors"
+            className="bg-[#FF5630] hover:bg-[#FF7452] px-12 py-6 rounded-full font-semibold text-xl inline-flex items-center space-x-3 transition-colors shadow-lg"
           >
             <span>Schedule Your Demo Today</span>
-            <ArrowRight className="h-5 w-5" />
+            <ArrowRight className="h-6 w-6" />
           </button>
         </div>
       </section>
@@ -592,7 +767,7 @@ function App() {
       <footer className="bg-[#42526E] text-white py-12">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between">
-            <WizerLogo className="h-8" />
+            <WizerLogo className="h-10" />
             <div className="text-sm">
               © 2024 Wizer AI. All rights reserved.
             </div>
