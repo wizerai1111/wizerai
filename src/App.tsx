@@ -90,7 +90,7 @@ function ContactForm({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
       }
 
       onClose();
-      alert('Thank you! We will contact you shortly to schedule your demo.');
+      alert('Thank you! We will contact you shortly.');
       setFormData({
         name: '',
         email: '',
@@ -124,7 +124,7 @@ function ContactForm({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
         >
           <X className="h-6 w-6" />
         </button>
-        <h2 className="text-2xl font-bold mb-6 text-[#42526E] pr-8">Schedule a Demo</h2>
+        <h2 className="text-2xl font-bold mb-6 text-[#42526E] pr-8">Contact Us</h2>
         {error && (
           <div className="mb-4 p-4 bg-red-50 text-red-600 rounded-lg">
             {error}
