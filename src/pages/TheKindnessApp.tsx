@@ -350,16 +350,16 @@ const TheKindnessApp: React.FC = () => {
 
                   {/* Step 3 */}
                   <div className="flex flex-col md:flex-row md:items-center">
-                    <div className="w-full md:w-1/2 mb-4 md:mb-0 md:pr-12 md:text-right">
+                    <div className="w-full md:w-1/2 order-2 md:order-1 mb-4 md:mb-0 md:pr-12 md:text-right">
                       <h3 className="text-xl font-bold mb-3">Preparation of Items</h3>
                       <p className="text-gray-700">
                         Businesses prepare nutritious meals or gather requested items according to community needs and dietary requirements.
                       </p>
                     </div>
-                    <div className="w-12 mx-auto md:mx-0 flex justify-center my-4 md:my-0">
+                    <div className="w-12 mx-auto md:mx-0 flex justify-center order-1 md:order-2 my-4 md:my-0">
                       <div className="bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl shadow-lg">3</div>
                     </div>
-                    <div className="w-full md:w-1/2 md:pl-12">
+                    <div className="w-full md:w-1/2 md:pl-12 order-3">
                       <img
                         src="/images/makefood.jpg"
                         alt="Food preparation showing chefs preparing meals in containers"
