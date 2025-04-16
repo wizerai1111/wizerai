@@ -307,9 +307,9 @@ const TheKindnessApp: React.FC = () => {
               <h2 className="text-3xl font-bold mb-8 text-center">How It Works</h2>
               <div className="relative">
                 <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-indigo-200 hidden md:block"></div>
-                <div className="relative z-10">
+                <div className="relative z-10 space-y-8 md:space-y-12">
                   {/* Step 1 */}
-                  <div className="md:flex items-center mb-12">
+                  <div className="md:flex items-center">
                     <div className="md:w-1/2 mb-6 md:mb-0 md:pr-12 md:text-right">
                       <h3 className="text-xl font-bold mb-3">Donors Contribute</h3>
                       <p className="text-gray-700">
@@ -319,35 +319,37 @@ const TheKindnessApp: React.FC = () => {
                     <div className="md:w-12 mx-auto md:mx-0 flex justify-center">
                       <div className="bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl shadow-lg">1</div>
                     </div>
-                    <div className="md:w-1/2 md:pl-12 md:text-right hidden md:block">
+                    <div className="md:w-1/2 md:pl-12">
                       <img
                         src="https://readdy.ai/api/search-image?query=A%20person%20making%20an%20online%20donation%20on%20a%20smartphone%20app%20with%20a%20warm%20and%20friendly%20interface%20showing%20donation%20options%20for%20meals%20and%20other%20essentials%2C%20with%20a%20clean%20modern%20design%20on%20a%20simple%20background&width=300&height=200&seq=2&orientation=landscape"
                         alt="Donation process"
-                        className="rounded-lg shadow-lg w-full"
+                        className="rounded-lg shadow-lg w-full mt-6 md:mt-0"
                       />
                     </div>
                   </div>
+
                   {/* Step 2 */}
-                  <div className="md:flex items-center mb-12">
-                    <div className="md:w-1/2 mb-6 md:mb-0 md:pr-12 hidden md:block">
+                  <div className="md:flex items-center">
+                    <div className="md:w-1/2 mb-6 md:mb-0 md:pr-12 order-2 md:order-1">
                       <img
                         src="https://readdy.ai/api/search-image?query=Local%20restaurant%20or%20small%20business%20receiving%20an%20order%20notification%20on%20a%20tablet%20device%2C%20showing%20details%20of%20meals%20to%20prepare%20for%20donation%2C%20with%20staff%20members%20looking%20excited%20to%20participate%20in%20the%20program%2C%20on%20a%20simple%20background&width=300&height=200&seq=3&orientation=landscape"
                         alt="Local businesses receive funds"
-                        className="rounded-lg shadow-lg w-full"
+                        className="rounded-lg shadow-lg w-full mt-6 md:mt-0"
                       />
                     </div>
-                    <div className="md:w-12 mx-auto md:mx-0 flex justify-center">
+                    <div className="md:w-12 mx-auto md:mx-0 flex justify-center order-1 md:order-2">
                       <div className="bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl shadow-lg">2</div>
                     </div>
-                    <div className="md:w-1/2 md:pl-12">
+                    <div className="md:w-1/2 md:pl-12 order-3">
                       <h3 className="text-xl font-bold mb-3">Local Businesses Receive Funds</h3>
                       <p className="text-gray-700">
                         Restaurants, grocery stores, and other local businesses receive the donations to prepare meals or gather essential items.
                       </p>
                     </div>
                   </div>
+
                   {/* Step 3 */}
-                  <div className="md:flex items-center mb-12">
+                  <div className="md:flex items-center">
                     <div className="md:w-1/2 mb-6 md:mb-0 md:pr-12 md:text-right">
                       <h3 className="text-xl font-bold mb-3">Preparation of Items</h3>
                       <p className="text-gray-700">
@@ -357,27 +359,28 @@ const TheKindnessApp: React.FC = () => {
                     <div className="md:w-12 mx-auto md:mx-0 flex justify-center">
                       <div className="bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl shadow-lg">3</div>
                     </div>
-                    <div className="md:w-1/2 md:pl-12 hidden md:block">
+                    <div className="md:w-1/2 md:pl-12">
                       <img
                         src="/images/makefood.jpg"
                         alt="Food preparation showing chefs preparing meals in containers"
-                        className="rounded-lg shadow-lg w-full"
+                        className="rounded-lg shadow-lg w-full mt-6 md:mt-0"
                       />
                     </div>
                   </div>
+
                   {/* Step 4 */}
                   <div className="md:flex items-center">
-                    <div className="md:w-1/2 mb-6 md:mb-0 md:pr-12 hidden md:block">
+                    <div className="md:w-1/2 mb-6 md:mb-0 md:pr-12 order-2 md:order-1">
                       <img
                         src="/images/Delivery.jpg"
                         alt="Delivery showing people receiving packages at their doorstep"
-                        className="rounded-lg shadow-lg w-full"
+                        className="rounded-lg shadow-lg w-full mt-6 md:mt-0"
                       />
                     </div>
-                    <div className="md:w-12 mx-auto md:mx-0 flex justify-center">
+                    <div className="md:w-12 mx-auto md:mx-0 flex justify-center order-1 md:order-2">
                       <div className="bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl shadow-lg">4</div>
                     </div>
-                    <div className="md:w-1/2 md:pl-12">
+                    <div className="md:w-1/2 md:pl-12 order-3">
                       <h3 className="text-xl font-bold mb-3">Delivery to Recipients</h3>
                       <p className="text-gray-700">
                         Using AI-optimized routes, items are delivered to registered recipients efficiently, ensuring they arrive fresh and on time.
