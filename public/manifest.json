@@ -1,0 +1,25 @@
+{
+  "short_name": "Wizer AI",
+  "name": "Wizer AI - Human-Centered AI Solutions",
+  "icons": [
+    {
+      "src": "@LogoMakr-0RjNJq.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "@LogoMakr-0RjNJq.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "@LogoMakr-0RjNJq.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#4F46E5",
+  "background_color": "#ffffff"
+} 
