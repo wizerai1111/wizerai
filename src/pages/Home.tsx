@@ -1,5 +1,5 @@
 // The exported code uses Tailwind CSS. Install Tailwind CSS in your dev environment to ensure all styles work.
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import useScrollToTop from '../hooks/useScrollToTop';
@@ -9,6 +9,7 @@ import PartnershipForm from '../components/PartnershipForm';
 
 const Home: React.FC = () => {
   useScrollToTop();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
