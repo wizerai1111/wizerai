@@ -172,52 +172,65 @@ const Vision2030: React.FC = () => {
               {/* Timeline line - hidden on mobile, shown on md and up */}
               <div className="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-teal-200 transform -translate-y-1/2"></div>
               
-              {/* Vertical line for mobile */}
-              <div className="md:hidden absolute left-6 top-0 bottom-0 w-1 bg-teal-200"></div>
-
               {/* Timeline items */}
               <div className="flex flex-col md:flex-row md:justify-between relative z-10 space-y-8 md:space-y-0">
                 {/* 2025 */}
-                <div className="flex md:flex-col items-start md:items-center md:w-1/4 pl-16 md:pl-0 relative">
-                  <div className="absolute left-0 md:static w-12 h-12 rounded-full bg-teal-600 flex items-center justify-center md:mb-4">
-                    <span className="text-white font-bold">2025</span>
-                  </div>
-                  <div className="bg-white p-6 rounded-lg shadow-md w-full">
-                    <h3 className="text-xl font-bold mb-2">Foundation</h3>
-                    <p className="text-gray-600">Establishing our core AI frameworks with human-centered design principles.</p>
+                <div className="flex md:flex-col items-start md:items-center md:w-1/4 relative">
+                  <div className="flex items-center md:flex-col w-full">
+                    <div className="w-12 h-12 rounded-full bg-teal-600 flex items-center justify-center md:mb-4 flex-shrink-0">
+                      <span className="text-white font-bold">2025</span>
+                    </div>
+                    <div className="ml-4 md:ml-0 flex-grow">
+                      <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full">
+                        <h3 className="text-xl font-bold mb-2">Foundation</h3>
+                        <p className="text-gray-600">Establishing our core AI frameworks with human-centered design principles.</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 {/* 2027 */}
-                <div className="flex md:flex-col items-start md:items-center md:w-1/4 pl-16 md:pl-0 relative">
-                  <div className="absolute left-0 md:static w-12 h-12 rounded-full bg-teal-500 flex items-center justify-center md:mb-4">
-                    <span className="text-white font-bold">2027</span>
-                  </div>
-                  <div className="bg-white p-6 rounded-lg shadow-md w-full">
-                    <h3 className="text-xl font-bold mb-2">Expansion</h3>
-                    <p className="text-gray-600">Scaling our solutions globally while preserving cultural nuances and wisdom.</p>
+                <div className="flex md:flex-col items-start md:items-center md:w-1/4 relative">
+                  <div className="flex items-center md:flex-col w-full">
+                    <div className="w-12 h-12 rounded-full bg-teal-500 flex items-center justify-center md:mb-4 flex-shrink-0">
+                      <span className="text-white font-bold">2027</span>
+                    </div>
+                    <div className="ml-4 md:ml-0 flex-grow">
+                      <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full">
+                        <h3 className="text-xl font-bold mb-2">Expansion</h3>
+                        <p className="text-gray-600">Scaling our solutions globally while preserving cultural nuances and wisdom.</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 {/* 2029 */}
-                <div className="flex md:flex-col items-start md:items-center md:w-1/4 pl-16 md:pl-0 relative">
-                  <div className="absolute left-0 md:static w-12 h-12 rounded-full bg-teal-400 flex items-center justify-center md:mb-4">
-                    <span className="text-white font-bold">2029</span>
-                  </div>
-                  <div className="bg-white p-6 rounded-lg shadow-md w-full">
-                    <h3 className="text-xl font-bold mb-2">Integration</h3>
-                    <p className="text-gray-600">Seamless integration of our AI systems into daily life, enhancing human connection.</p>
+                <div className="flex md:flex-col items-start md:items-center md:w-1/4 relative">
+                  <div className="flex items-center md:flex-col w-full">
+                    <div className="w-12 h-12 rounded-full bg-teal-400 flex items-center justify-center md:mb-4 flex-shrink-0">
+                      <span className="text-white font-bold">2029</span>
+                    </div>
+                    <div className="ml-4 md:ml-0 flex-grow">
+                      <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full">
+                        <h3 className="text-xl font-bold mb-2">Integration</h3>
+                        <p className="text-gray-600">Seamless integration of our AI systems into daily life, enhancing human connection.</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 {/* 2030 */}
-                <div className="flex md:flex-col items-start md:items-center md:w-1/4 pl-16 md:pl-0 relative">
-                  <div className="absolute left-0 md:static w-12 h-12 rounded-full bg-teal-300 flex items-center justify-center md:mb-4">
-                    <span className="text-white font-bold">2030</span>
-                  </div>
-                  <div className="bg-white p-6 rounded-lg shadow-md w-full">
-                    <h3 className="text-xl font-bold mb-2">Realization</h3>
-                    <p className="text-gray-600">Achieving our vision of AI as a force for human flourishing across generations.</p>
+                <div className="flex md:flex-col items-start md:items-center md:w-1/4 relative">
+                  <div className="flex items-center md:flex-col w-full">
+                    <div className="w-12 h-12 rounded-full bg-teal-300 flex items-center justify-center md:mb-4 flex-shrink-0">
+                      <span className="text-white font-bold">2030</span>
+                    </div>
+                    <div className="ml-4 md:ml-0 flex-grow">
+                      <div className="bg-white p-4 md:p-6 rounded-lg shadow-md w-full">
+                        <h3 className="text-xl font-bold mb-2">Realization</h3>
+                        <p className="text-gray-600">Achieving our vision of AI as a force for human flourishing across generations.</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
