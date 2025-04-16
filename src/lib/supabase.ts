@@ -1,10 +1,25 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+// Get environment variables with fallbacks
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY || '';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
+// Validate environment variables
+if (!supabaseUrl) {
+  console.error('Missing REACT_APP_SUPABASE_URL environment variable');
+  throw new Error('Missing Supabase URL');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey); 
+if (!supabaseAnonKey) {
+  console.error('Missing REACT_APP_SUPABASE_ANON_KEY environment variable');
+  throw new Error('Missing Supabase anon key');
+}
+
+// Create and export the Supabase client
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true
+  }
+}); 
