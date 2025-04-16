@@ -11,6 +11,10 @@ const Home: React.FC = () => {
   useScrollToTop();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     // Function to handle hash-based scrolling
     const handleHashScroll = () => {
       const hash = window.location.hash.substring(1); // Remove the # symbol

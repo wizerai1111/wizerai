@@ -1,8 +1,13 @@
 // The exported code uses Tailwind CSS. Install Tailwind CSS in your dev environment to ensure all styles work.
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const AskTheGuru: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -18,45 +23,96 @@ const AskTheGuru: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 text-gray-800 font-sans">
       {/* Header */}
       <header className="bg-white shadow-sm fixed w-full z-50">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <Link to="/" className="flex items-center">
+            <Link to="/" onClick={() => window.scrollTo(0, 0)} className="flex items-center">
               <img src="/@LogoMakr-0RjNJq.png" alt="Wizer AI Logo" className="h-8" />
               <img src="/@LogoMakr-269pom.png" alt="Ask The Guru Logo" className="h-8 ml-2" />
             </Link>
           </div>
-          <nav className="hidden md:flex space-x-8">
-            <button
-              onClick={() => scrollToSection('what-powers')}
-              className="text-gray-600 hover:text-gray-900 cursor-pointer"
-            >
-              What Powers It
-            </button>
-            <button
-              onClick={() => scrollToSection('how-it-works')}
-              className="text-gray-600 hover:text-gray-900 cursor-pointer"
-            >
-              How It Works
-            </button>
-            <button
-              onClick={() => scrollToSection('chat-reports')}
-              className="text-gray-600 hover:text-gray-900 cursor-pointer"
-            >
-              Chat Reports
-            </button>
-            <button
-              onClick={() => scrollToSection('insights')}
-              className="text-gray-600 hover:text-gray-900 cursor-pointer"
-            >
-              Insights
-            </button>
-          </nav>
-          <Link to="/">
-            <button className="bg-amber-600 text-white px-5 py-2 rounded-lg hover:bg-amber-700 transition-colors">
-              Go Home
-            </button>
-          </Link>
+
+          {/* Mobile menu button */}
+          <button 
+            className="md:hidden text-gray-600 hover:text-gray-900 focus:outline-none"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {isMobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+
+          <div className="hidden md:flex items-center space-x-8">
+            <nav className="flex space-x-8 items-center">
+              <button onClick={() => {
+                const element = document.getElementById('overview');
+                element?.scrollIntoView({ behavior: 'smooth' });
+                setIsMobileMenuOpen(false);
+              }} className="text-gray-600 hover:text-gray-900 cursor-pointer">Overview</button>
+              <button onClick={() => {
+                const element = document.getElementById('features');
+                element?.scrollIntoView({ behavior: 'smooth' });
+                setIsMobileMenuOpen(false);
+              }} className="text-gray-600 hover:text-gray-900 cursor-pointer">Features</button>
+              <button onClick={() => {
+                const element = document.getElementById('how-it-works');
+                element?.scrollIntoView({ behavior: 'smooth' });
+                setIsMobileMenuOpen(false);
+              }} className="text-gray-600 hover:text-gray-900 cursor-pointer">How It Works</button>
+            </nav>
+            <Link to="/" onClick={() => window.scrollTo(0, 0)}>
+              <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition duration-300 ease-in-out cursor-pointer !rounded-button whitespace-nowrap">
+                Go Home
+              </button>
+            </Link>
+          </div>
         </div>
+
+        {/* Mobile menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-white border-t border-gray-200">
+            <div className="container mx-auto px-4 py-4 space-y-4">
+              <button 
+                onClick={() => {
+                  const element = document.getElementById('overview');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                  setIsMobileMenuOpen(false);
+                }} 
+                className="block w-full text-left text-gray-600 hover:text-gray-900 py-2"
+              >
+                Overview
+              </button>
+              <button 
+                onClick={() => {
+                  const element = document.getElementById('features');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                  setIsMobileMenuOpen(false);
+                }} 
+                className="block w-full text-left text-gray-600 hover:text-gray-900 py-2"
+              >
+                Features
+              </button>
+              <button 
+                onClick={() => {
+                  const element = document.getElementById('how-it-works');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                  setIsMobileMenuOpen(false);
+                }} 
+                className="block w-full text-left text-gray-600 hover:text-gray-900 py-2"
+              >
+                How It Works
+              </button>
+              <Link to="/" onClick={() => window.scrollTo(0, 0)} className="block">
+                <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition duration-300 ease-in-out cursor-pointer !rounded-button">
+                  Go Home
+                </button>
+              </Link>
+            </div>
+          </div>
+        )}
       </header>
 
       <div className="pt-16">

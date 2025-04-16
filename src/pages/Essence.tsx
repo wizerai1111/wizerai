@@ -7,6 +7,7 @@ const Essence: React.FC = () => {
   const [email, setEmail] = useState('');
   const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -66,11 +67,38 @@ const Essence: React.FC = () => {
                 <img src="/@LogoMakr-7l5QvC.png" alt="Essence Logo" className="h-8 ml-2" />
               </Link>
             </div>
+
+            {/* Mobile menu button */}
+            <button 
+              className="md:hidden text-gray-600 hover:text-gray-900 focus:outline-none"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {isMobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+
             <div className="hidden md:flex items-center space-x-8">
-              <button onClick={() => document.getElementById('technology')?.scrollIntoView({ behavior: 'smooth' })} className="text-gray-700 hover:text-indigo-600">Technology</button>
-              <button onClick={() => document.getElementById('legacy')?.scrollIntoView({ behavior: 'smooth' })} className="text-gray-700 hover:text-indigo-600">Legacy</button>
-              <button onClick={() => document.getElementById('privacy')?.scrollIntoView({ behavior: 'smooth' })} className="text-gray-700 hover:text-indigo-600">Privacy</button>
-              <button onClick={() => document.getElementById('use-cases')?.scrollIntoView({ behavior: 'smooth' })} className="text-gray-700 hover:text-indigo-600">Use Cases</button>
+              <button onClick={() => {
+                document.getElementById('technology')?.scrollIntoView({ behavior: 'smooth' });
+                setIsMobileMenuOpen(false);
+              }} className="text-gray-700 hover:text-indigo-600">Technology</button>
+              <button onClick={() => {
+                document.getElementById('legacy')?.scrollIntoView({ behavior: 'smooth' });
+                setIsMobileMenuOpen(false);
+              }} className="text-gray-700 hover:text-indigo-600">Legacy</button>
+              <button onClick={() => {
+                document.getElementById('privacy')?.scrollIntoView({ behavior: 'smooth' });
+                setIsMobileMenuOpen(false);
+              }} className="text-gray-700 hover:text-indigo-600">Privacy</button>
+              <button onClick={() => {
+                document.getElementById('use-cases')?.scrollIntoView({ behavior: 'smooth' });
+                setIsMobileMenuOpen(false);
+              }} className="text-gray-700 hover:text-indigo-600">Use Cases</button>
               <Link to="/">
                 <button className="bg-amber-600 text-white px-5 py-2 rounded-lg hover:bg-amber-700 transition-colors">
                   Go Home
@@ -78,6 +106,55 @@ const Essence: React.FC = () => {
               </Link>
             </div>
           </div>
+
+          {/* Mobile menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden bg-white border-t border-gray-200 mt-4">
+              <div className="container mx-auto px-4 py-4 space-y-4">
+                <button 
+                  onClick={() => {
+                    document.getElementById('technology')?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMobileMenuOpen(false);
+                  }} 
+                  className="block w-full text-left text-gray-600 hover:text-gray-900 py-2"
+                >
+                  Technology
+                </button>
+                <button 
+                  onClick={() => {
+                    document.getElementById('legacy')?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMobileMenuOpen(false);
+                  }} 
+                  className="block w-full text-left text-gray-600 hover:text-gray-900 py-2"
+                >
+                  Legacy
+                </button>
+                <button 
+                  onClick={() => {
+                    document.getElementById('privacy')?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMobileMenuOpen(false);
+                  }} 
+                  className="block w-full text-left text-gray-600 hover:text-gray-900 py-2"
+                >
+                  Privacy
+                </button>
+                <button 
+                  onClick={() => {
+                    document.getElementById('use-cases')?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMobileMenuOpen(false);
+                  }} 
+                  className="block w-full text-left text-gray-600 hover:text-gray-900 py-2"
+                >
+                  Use Cases
+                </button>
+                <Link to="/" className="block">
+                  <button className="w-full bg-amber-600 text-white px-5 py-2 rounded-lg hover:bg-amber-700 transition-colors">
+                    Go Home
+                  </button>
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </header>
       {/* Add padding to account for fixed header */}

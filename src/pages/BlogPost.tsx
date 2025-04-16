@@ -1,6 +1,7 @@
 // The exported code uses Tailwind CSS. Install Tailwind CSS in your dev environment to ensure all styles work.
-import React, { useState } from 'react';
-const App: React.FC = () => {
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+const BlogPost: React.FC = () => {
 // Mock data for the blog post
 const blogPost = {
 id: 1,
@@ -128,30 +129,112 @@ imageUrl: 'https://readdy.ai/api/search-image?query=Cybersecurity%2520visualizat
 ];
 // State for comment form
 const [commentText, setCommentText] = useState('');
+const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+useEffect(() => {
+window.scrollTo(0, 0);
+}, []);
+
+const scrollToSection = (sectionId: string) => {
+const element = document.getElementById(sectionId);
+if (element) {
+element.scrollIntoView({ behavior: 'smooth' });
+}
+};
+
 return (
-<div className="min-h-screen bg-gray-50">
-{/* Header */}
-<header className="bg-white shadow-sm">
-<div className="container mx-auto px-4 py-4">
-<div className="flex items-center justify-between">
-{/* Logo */}
-<div className="flex items-center">
-<img src="https://static.readdy.ai/image/7d8beb85d8ebd3e9bf548cb44f2d5616/4325162faa1bad1356c87e2c93cf9dc4.png" alt="Wizer AI" className="h-8" />
+<div className="min-h-screen bg-white">
+{/* Navigation Header */}
+<header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+<div className="container mx-auto px-4 py-4 flex items-center justify-between">
+<div className="flex items-center space-x-4">
+<Link to="/" onClick={() => window.scrollTo(0, 0)} className="flex items-center">
+<img src="/@LogoMakr-0RjNJq.png" alt="Wizer AI Logo" className="h-8" />
+</Link>
 </div>
-{/* Navigation - Desktop */}
-<nav className="hidden md:flex items-center space-x-6">
-<a href="https://readdy.ai/home/1ff97779-4f5a-4592-b376-399bc1f4d447/b28a97e6-5576-4a50-8df9-ee1ebab8257a" data-readdy="true" className="text-gray-600 hover:text-blue-600 font-medium cursor-pointer">Home</a>
-<a href="#" className="text-gray-600 hover:text-blue-600 font-medium cursor-pointer">About</a>
-<a href="#" className="text-gray-600 hover:text-blue-600 font-medium cursor-pointer">Contact</a>
-</nav>
-{/* Mobile Menu Button */}
-<button
-className="md:hidden text-gray-500 focus:outline-none cursor-pointer"
+
+{/* Mobile menu button */}
+<button 
+className="md:hidden text-gray-600 hover:text-gray-900 focus:outline-none"
+onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
 >
-<i className="fas fa-bars text-xl"></i>
+<svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+{isMobileMenuOpen ? (
+<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+) : (
+<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+)}
+</svg>
 </button>
+
+<div className="hidden md:flex items-center space-x-8">
+<nav className="flex space-x-8 items-center">
+<button onClick={() => {
+const element = document.getElementById('overview');
+element?.scrollIntoView({ behavior: 'smooth' });
+setIsMobileMenuOpen(false);
+}} className="text-gray-600 hover:text-gray-900 cursor-pointer">Overview</button>
+<button onClick={() => {
+const element = document.getElementById('features');
+element?.scrollIntoView({ behavior: 'smooth' });
+setIsMobileMenuOpen(false);
+}} className="text-gray-600 hover:text-gray-900 cursor-pointer">Features</button>
+<button onClick={() => {
+const element = document.getElementById('benefits');
+element?.scrollIntoView({ behavior: 'smooth' });
+setIsMobileMenuOpen(false);
+}} className="text-gray-600 hover:text-gray-900 cursor-pointer">Benefits</button>
+</nav>
+<Link to="/" onClick={() => window.scrollTo(0, 0)}>
+<button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition duration-300 ease-in-out cursor-pointer !rounded-button whitespace-nowrap">
+Go Home
+</button>
+</Link>
 </div>
 </div>
+
+{/* Mobile menu */}
+{isMobileMenuOpen && (
+<div className="md:hidden bg-white border-t border-gray-200">
+<div className="container mx-auto px-4 py-4 space-y-4">
+<button 
+onClick={() => {
+const element = document.getElementById('overview');
+element?.scrollIntoView({ behavior: 'smooth' });
+setIsMobileMenuOpen(false);
+}} 
+className="block w-full text-left text-gray-600 hover:text-gray-900 py-2"
+>
+Overview
+</button>
+<button 
+onClick={() => {
+const element = document.getElementById('features');
+element?.scrollIntoView({ behavior: 'smooth' });
+setIsMobileMenuOpen(false);
+}} 
+className="block w-full text-left text-gray-600 hover:text-gray-900 py-2"
+>
+Features
+</button>
+<button 
+onClick={() => {
+const element = document.getElementById('benefits');
+element?.scrollIntoView({ behavior: 'smooth' });
+setIsMobileMenuOpen(false);
+}} 
+className="block w-full text-left text-gray-600 hover:text-gray-900 py-2"
+>
+Benefits
+</button>
+<Link to="/" onClick={() => window.scrollTo(0, 0)} className="block">
+<button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition duration-300 ease-in-out cursor-pointer !rounded-button">
+Go Home
+</button>
+</Link>
+</div>
+</div>
+)}
 </header>
 {/* Main Content */}
 <main className="container mx-auto px-4 py-8">
@@ -435,4 +518,4 @@ Load More Comments
 </div>
 );
 };
-export default App
+export default BlogPost
