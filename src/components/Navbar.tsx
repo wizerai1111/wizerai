@@ -4,6 +4,14 @@ import { Link } from 'react-router-dom';
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   return (
     <nav className="bg-white shadow-sm fixed w-full z-50">
       <div className="container mx-auto px-4">
@@ -16,8 +24,8 @@ const Navbar: React.FC = () => {
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/#products" className="text-gray-600 hover:text-gray-900">Products</Link>
-            <Link to="/#about" className="text-gray-600 hover:text-gray-900">About</Link>
+            <button onClick={() => scrollToSection('products')} className="text-gray-600 hover:text-gray-900">Products</button>
+            <button onClick={() => scrollToSection('about-us')} className="text-gray-600 hover:text-gray-900">About</button>
             <Link to="/vision-2030" className="text-gray-600 hover:text-gray-900">Vision 2030</Link>
           </div>
 
@@ -43,20 +51,18 @@ const Navbar: React.FC = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <Link
-              to="/#products"
-              className="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md"
-              onClick={() => setIsMobileMenuOpen(false)}
+            <button
+              onClick={() => scrollToSection('products')}
+              className="block w-full text-left px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md"
             >
               Products
-            </Link>
-            <Link
-              to="/#about"
-              className="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md"
-              onClick={() => setIsMobileMenuOpen(false)}
+            </button>
+            <button
+              onClick={() => scrollToSection('about-us')}
+              className="block w-full text-left px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md"
             >
               About
-            </Link>
+            </button>
             <Link
               to="/vision-2030"
               className="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md"
