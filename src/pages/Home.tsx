@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import useScrollToTop from '../hooks/useScrollToTop';
 import { supabase } from '../lib/supabase';
-import { FormProvider } from '../context/FormContext';
+import { FormProvider, useForm } from '../context/FormContext';
 import PartnershipForm from '../components/PartnershipForm';
 
 const Home: React.FC = () => {
   useScrollToTop();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { setShowPartnershipForm } = useForm();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -112,7 +113,7 @@ const Home: React.FC = () => {
                   </button>
                 </Link>
                 <button 
-                  onClick={() => document.getElementById('partnership-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => setShowPartnershipForm(true)}
                   className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md transition duration-300 ease-in-out font-medium cursor-pointer !rounded-button whitespace-nowrap"
                 >
                   Partner with Us
