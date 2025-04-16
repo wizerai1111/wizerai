@@ -1,11 +1,46 @@
 // The exported code uses Tailwind CSS. Install Tailwind CSS in your dev environment to ensure all styles work.
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import useScrollToTop from '../hooks/useScrollToTop';
 
 const Home: React.FC = () => {
   useScrollToTop();
+
+  useEffect(() => {
+    // Function to handle hash-based scrolling
+    const handleHashScroll = () => {
+      const hash = window.location.hash.substring(1); // Remove the # symbol
+      if (hash) {
+        const element = document.getElementById(hash);
+        if (element) {
+          // Add a small delay to ensure the page is fully loaded
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+      }
+    };
+
+    // Initial check for hash
+    handleHashScroll();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashScroll);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashScroll);
+    };
+  }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+      // Update URL without page reload
+      window.history.pushState(null, '', `#${sectionId}`);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -35,11 +70,12 @@ const Home: React.FC = () => {
                   Explore Our Vision
                 </button>
               </Link>
-              <Link to="/product-details">
-                <button className="text-gray-700 px-6 py-3 rounded-md transition duration-300 ease-in-out font-medium cursor-pointer !rounded-button whitespace-nowrap">
-                  View Our Projects
-                </button>
-              </Link>
+              <button 
+                onClick={() => scrollToSection('products')}
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md transition duration-300 ease-in-out font-medium cursor-pointer !rounded-button whitespace-nowrap"
+              >
+                View Our Projects
+              </button>
             </div>
           </div>
         </div>
@@ -131,72 +167,47 @@ const Home: React.FC = () => {
       <section id="products" className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-4">Our Products</h2>
-          <p className="text-lg text-center text-gray-700 mb-12 max-w-3xl mx-auto">
-            We've developed a suite of solutions that demonstrate our vision of technology that amplifies humanity.
-          </p>
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* The Kindness App */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105">
-              <div className="h-48 overflow-hidden">
-                <img
-                  src="https://readdy.ai/api/search-image?query=Visual%20representation%20of%20a%20food%20distribution%20app%20with%20route%20optimization%2C%20showing%20a%20map%20with%20optimized%20delivery%20routes%20connecting%20food%20banks%20to%20communities%20in%20need%2C%20with%20warm%20colors%20and%20a%20clean%20modern%20interface%20design%20on%20a%20simple%20background&width=400&height=200&seq=4&orientation=landscape"
-                  alt="The Kindness App"
-                  className="w-full h-full object-cover object-top"
-                />
-              </div>
+          <p className="text-center text-gray-600 mb-10">We've developed a suite of solutions that demonstrate our vision of technology that amplifies humanity.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img src="/@knidness-App.jpg" alt="The Kindness App Logo" className="w-full h-40 object-cover" />
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-3">The Kindness App</h3>
-                <p className="text-gray-700 mb-4">
-                  Optimizes charitable food distribution through AI-powered scheduling and routing, ensuring resources reach those who need them most efficiently.
-                </p>
-                <Link to="/product-details">
-                  <button className="text-indigo-600 font-medium hover:text-indigo-800 flex items-center cursor-pointer !rounded-button whitespace-nowrap">
-                    Learn more <i className="fas fa-arrow-right ml-2"></i>
-                  </button>
-                </Link>
+                <h3 className="font-bold text-lg mb-2">The Kindness App</h3>
+                <p className="text-gray-700 text-sm mb-4">Optimizes charitable food distribution through AI-powered scheduling and routing, ensuring resources reach those who need them most efficiently.</p>
+                <a href="#" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center">Learn more <span className="ml-1">→</span></a>
               </div>
             </div>
-            {/* Ask The Guru */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105">
-              <div className="h-48 overflow-hidden">
-                <img
-                  src="https://readdy.ai/api/search-image?query=Knowledge%20platform%20interface%20showing%20connection%20between%20ancient%20wisdom%20and%20modern%20questions%2C%20with%20visual%20elements%20of%20traditional%20knowledge%20systems%20linked%20to%20contemporary%20inquiries%20through%20a%20digital%20interface%20with%20vector%20database%20visualization%2C%20on%20a%20simple%20background&width=400&height=200&seq=5&orientation=landscape"
-                  alt="Wisdom Keepers"
-                  className="w-full h-full object-cover object-top"
-                />
-              </div>
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img src="/@LogoMakr-269pom.png" alt="Ask The Guru Logo" className="w-full h-40 object-contain bg-white" />
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-3">Ask The Guru</h3>
-                <p className="text-gray-700 mb-4">
-                  A knowledge platform connecting ancient wisdom with modern questions using advanced vector database technology to preserve cultural heritage.
-                </p>
-                <Link to="/ask-the-guru">
-                  <button className="text-indigo-600 font-medium hover:text-indigo-800 flex items-center cursor-pointer !rounded-button whitespace-nowrap">
-                    Learn more <i className="fas fa-arrow-right ml-2"></i>
-                  </button>
-                </Link>
+                <h3 className="font-bold text-lg mb-2">Ask The Guru</h3>
+                <p className="text-gray-700 text-sm mb-4">A knowledge platform connecting ancient wisdom with modern questions using advanced vector database technology to preserve cultural heritage.</p>
+                <a href="#" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center">Learn more <span className="ml-1">→</span></a>
               </div>
             </div>
-            {/* Essence */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105">
-              <div className="h-48 overflow-hidden">
-                <img
-                  src="https://readdy.ai/api/search-image?query=Digital%20memory%20system%20interface%20showing%20personal%20storytelling%20and%20wisdom%20preservation%2C%20with%20visual%20elements%20of%20questionnaires%20and%20responsive%20memory%20systems%20capturing%20family%20stories%20and%20knowledge%20for%20future%20generations%2C%20on%20a%20simple%20background&width=400&height=200&seq=6&orientation=landscape"
-                  alt="Essence"
-                  className="w-full h-full object-cover object-top"
-                />
-              </div>
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img src="/@LogoMakr-7l5QvC.png" alt="Essense Logo" className="w-full h-40 object-contain bg-white" />
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-3">Essence</h3>
-                <p className="text-gray-700 mb-4">
-                  Preserves personal stories and wisdom for future generations through thoughtful questionnaires and responsive memory systems.
-                </p>
-                <Link to="/essence">
-                  <button className="text-indigo-600 font-medium hover:text-indigo-800 flex items-center cursor-pointer !rounded-button whitespace-nowrap">
-                    Learn more <i className="fas fa-arrow-right ml-2"></i>
-                  </button>
-                </Link>
+                <h3 className="font-bold text-lg mb-2">Essense</h3>
+                <p className="text-gray-700 text-sm mb-4">Preserves personal stories and wisdom for future generations through thoughtful questionnaires and responsive memory systems.</p>
+                <a href="#" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center">Learn more <span className="ml-1">→</span></a>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* About Wizer AI Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-6">About Wizer AI</h2>
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <p className="text-gray-800 text-base md:text-lg mb-4">We are a team of technologists, ethicists, and dreamers committed to developing AI that serves human potential. Our diverse backgrounds unite around a common vision: technology in service of humanity, never the other way around.</p>
+              <p className="text-gray-800 text-base md:text-lg mb-4">Unlike traditional tech companies that measure success by metrics and profits alone, we measure our impact by lives touched and communities strengthened.</p>
+              <a href="/vision-2030" className="inline-block mt-4 px-6 py-2 bg-indigo-600 text-white rounded-md font-medium">Our Vision</a>
+            </div>
+            <div>
+              <img src="/@iStock-2205967887.jpg" alt="About Wizer AI" className="rounded-lg shadow-lg w-full" />
             </div>
           </div>
         </div>
@@ -204,129 +215,90 @@ const Home: React.FC = () => {
       {/* About Us Section */}
       <section id="about-us" className="py-16">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold mb-6">About Wizer AI</h2>
-              <p className="text-lg text-gray-700 mb-6">
-                We are a team of technologists, ethicists, and dreamers committed to developing AI that serves human potential. Our diverse backgrounds unite around a common vision: technology in service of humanity, never the other way around.
-              </p>
-              <p className="text-lg text-gray-700 mb-6">
-                Unlike traditional tech companies that measure success by metrics and profits alone, we measure our impact by lives touched and communities strengthened.
-              </p>
-              <Link to="/vision-2030">
-                <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md transition duration-300 ease-in-out font-medium mt-4 cursor-pointer !rounded-button whitespace-nowrap">
-                  Our Vision
-                </button>
-              </Link>
-            </div>
-            <div>
-              <img
-                src="https://static.readdy.ai/image/7d8beb85d8ebd3e9bf548cb44f2d5616/7e73fdf52ff94fd7fa52b75b1b4a7386.jpeg"
-                alt="Wizer AI Team"
-                className="rounded-lg shadow-lg w-full"
-              />
-            </div>
+          <h2 className="text-3xl font-bold text-center mb-12">About Us</h2>
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-lg text-gray-700 mb-6">
+              Wizer AI is dedicated to creating AI solutions that enhance human connection and personal growth.
+            </p>
+            <Link to="/vision-2030">
+              <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md transition duration-300 ease-in-out font-medium cursor-pointer !rounded-button whitespace-nowrap">
+                Learn More About Our Vision
+              </button>
+            </Link>
           </div>
         </div>
       </section>
       {/* Contact Form Section */}
       <section id="contact-form" className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-8">Get in Touch</h2>
-            <p className="text-lg text-center text-gray-700 mb-12">
-              Have a question or want to collaborate? We'd love to hear from you. Fill out the form below and we'll get back to you shortly.
-            </p>
-            <form className="space-y-6" onSubmit={(e) => {
-              e.preventDefault();
-              const formData = new FormData(e.target as HTMLFormElement);
-              const data = Object.fromEntries(formData.entries());
-              console.log('Form submitted:', data);
-              // Reset form
-              (e.target as HTMLFormElement).reset();
-            }}>
-              <div className="grid md:grid-cols-2 gap-6">
+          <h2 className="text-3xl font-bold text-center mb-12">Contact Us</h2>
+          <div className="max-w-2xl mx-auto">
+            <form className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 mb-1">
+                    First Name
+                  </label>
                   <input
                     type="text"
-                    id="firstName"
-                    name="firstName"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    id="first-name"
+                    name="first-name"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                     required
                   />
                 </div>
                 <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                  <label htmlFor="last-name" className="block text-sm font-medium text-gray-700 mb-1">
+                    Last Name
+                  </label>
                   <input
                     type="text"
-                    id="lastName"
-                    name="lastName"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    id="last-name"
+                    name="last-name"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                     required
                   />
                 </div>
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  Email
+                </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">Company (Optional)</label>
+                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">
+                  Company (Optional)
+                </label>
                 <input
                   type="text"
                   id="company"
                   name="company"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                <select
-                  id="subject"
-                  name="subject"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                  required
-                >
-                  <option value="">Please select</option>
-                  <option value="partnership">Partnership Opportunity</option>
-                  <option value="support">Technical Support</option>
-                  <option value="general">General Inquiry</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                  Message
+                </label>
                 <textarea
                   id="message"
                   name="message"
-                  rows={5}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  rows={4}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                   required
                 ></textarea>
               </div>
-              <div className="flex items-start">
-                <input
-                  type="checkbox"
-                  id="privacy"
-                  name="privacy"
-                  className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                  required
-                />
-                <label htmlFor="privacy" className="ml-2 text-sm text-gray-600">
-                  I agree to the <a href="#" className="text-indigo-600 hover:text-indigo-800">privacy policy</a> and consent to being contacted about my inquiry.
-                </label>
-              </div>
-              <div className="text-center">
+              <div>
                 <button
                   type="submit"
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-md transition duration-300 ease-in-out font-medium !rounded-button whitespace-nowrap"
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md transition duration-300 ease-in-out font-medium cursor-pointer !rounded-button whitespace-nowrap"
                 >
                   Send Message
                 </button>

@@ -5,7 +5,13 @@ const useScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Only scroll to top if there's no hash in the URL and we're not on the home page
+    if (!window.location.hash && pathname !== '/') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
   }, [pathname]);
 };
 
