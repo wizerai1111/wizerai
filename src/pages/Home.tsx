@@ -3,14 +3,9 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import useScrollToTop from '../hooks/useScrollToTop';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '../lib/supabase';
 import { FormProvider } from '../context/FormContext';
 import PartnershipForm from '../components/PartnershipForm';
-
-const supabase = createClient(
-  process.env.REACT_APP_SUPABASE_URL!,
-  process.env.REACT_APP_SUPABASE_ANON_KEY!
-);
 
 const Home: React.FC = () => {
   useScrollToTop();
