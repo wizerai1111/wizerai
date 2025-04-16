@@ -409,7 +409,7 @@ const Home: React.FC = () => {
               <div>
                 <h3 className="font-semibold text-lg mb-4">Products</h3>
                 <ul className="space-y-2">
-                  <li><Link to="/product-details" className="text-gray-400 hover:text-white cursor-pointer">The Kindness App</Link></li>
+                  <li><Link to="/the-kindness-app" className="text-gray-400 hover:text-white cursor-pointer">The Kindness App</Link></li>
                   <li><Link to="/ask-the-guru" className="text-gray-400 hover:text-white cursor-pointer">Ask the Guru</Link></li>
                   <li><Link to="/essence" className="text-gray-400 hover:text-white cursor-pointer">Essence</Link></li>
                 </ul>

@@ -436,72 +436,39 @@ const Vision2030: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-12">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <div className="mb-4">
-                <img src="https://static.readdy.ai/image/7d8beb85d8ebd3e9bf548cb44f2d5616/053d7dcdb45e8c6d6f0bacab19090caa.png" alt="Wizer AI Logo" className="h-8" />
-              </div>
-              <p className="text-gray-300">
-                Developing AI systems that enhance human connection, wisdom, and compassion.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-lg font-bold mb-4">Solutions</h4>
+              <h3 className="text-lg font-semibold mb-4">Products</h3>
               <ul className="space-y-2">
-                <li><a href="https://readdy.ai/home/1ff97779-4f5a-4592-b376-399bc1f4d447/eb0c0a74-b549-41e1-92a3-dde53a46400e" data-readdy="true" className="text-gray-300 hover:text-white cursor-pointer">The Kindness App</a></li>
-                <li><a href="https://readdy.ai/home/1ff97779-4f5a-4592-b376-399bc1f4d447/e1d2982f-8cfa-4e20-889d-260719b176a6" data-readdy="true" className="text-gray-300 hover:text-white cursor-pointer">Ask the Guru</a></li>
-                <li><a href="https://readdy.ai/home/1ff97779-4f5a-4592-b376-399bc1f4d447/872ea2cd-d901-465a-bb56-29267fe4a729" data-readdy="true" className="text-gray-300 hover:text-white cursor-pointer">Essence</a></li>
+                <li><Link to="/the-kindness-app" className="hover:text-indigo-400">The Kindness App</Link></li>
+                <li><Link to="/ask-the-guru" className="hover:text-indigo-400">Ask The Guru</Link></li>
+                <li><Link to="/essence" className="hover:text-indigo-400">Essence</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-lg font-bold mb-4">Company</h4>
+              <h3 className="text-lg font-semibold mb-4">Company</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-300 hover:text-white cursor-pointer">About Us</a></li>
-                <li><a href="https://readdy.ai/home/1ff97779-4f5a-4592-b376-399bc1f4d447/67b02fde-aeae-41e0-9c36-4f4372e6032d" data-readdy="true" className="text-gray-300 hover:text-white cursor-pointer">Vision 2030</a></li>
+                <li><Link to="/vision-2030" className="hover:text-indigo-400">Vision 2030</Link></li>
+                <li><Link to="/#products" className="hover:text-indigo-400">Our Products</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-lg font-bold mb-4">Stay Connected</h4>
-              <div className="flex space-x-4 mb-4">
-                <a href="#" className="text-gray-300 hover:text-white cursor-pointer">
-                  <i className="fab fa-twitter text-xl"></i>
-                </a>
-                <a href="#" className="text-gray-300 hover:text-white cursor-pointer">
-                  <i className="fab fa-linkedin text-xl"></i>
-                </a>
-                <a href="#" className="text-gray-300 hover:text-white cursor-pointer">
-                  <i className="fab fa-instagram text-xl"></i>
-                </a>
-                <a href="#" className="text-gray-300 hover:text-white cursor-pointer">
-                  <i className="fab fa-facebook text-xl"></i>
-                </a>
-              </div>
-              <div>
-                <h5 className="text-sm font-bold mb-2">Subscribe to our newsletter</h5>
-                <div className="flex">
-                  <input
-                    type="email"
-                    placeholder="Your email"
-                    className="px-4 py-2 text-gray-800 border-none rounded-l-lg focus:outline-none"
-                  />
-                  <button className="bg-teal-600 px-4 py-2 rounded-r-lg !rounded-button cursor-pointer whitespace-nowrap hover:bg-teal-700 transition duration-300">
-                    <i className="fas fa-paper-plane"></i>
-                  </button>
-                </div>
-              </div>
+              <h3 className="text-lg font-semibold mb-4">Connect</h3>
+              <ul className="space-y-2">
+                <li><a href="https://www.facebook.com/wizerai" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400">Facebook</a></li>
+                <li><a href="https://www.linkedin.com/company/wizer-ai" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400">LinkedIn</a></li>
+                <li><a href="https://twitter.com/wizer_ai" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400">Twitter</a></li>
+              </ul>
+            </div>
+            <div>
+              <img src="/@LogoMakr-0RjNJq.png" alt="Wizer AI Logo" className="h-8 mb-4" />
+              <p className="text-sm text-gray-400">Harnessing AI for Human Connection, Not Replacement</p>
             </div>
           </div>
-          <div className="border-t border-gray-700 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">
-              © 2025 Wizer AI. All rights reserved.
-            </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-gray-400 hover:text-white text-sm cursor-pointer">Privacy Policy</a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm cursor-pointer">Terms of Service</a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm cursor-pointer">Cookie Policy</a>
-            </div>
+          <div className="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-400">
+            <p>&copy; {new Date().getFullYear()} Wizer AI. All rights reserved.</p>
           </div>
         </div>
       </footer>

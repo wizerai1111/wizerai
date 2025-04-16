@@ -1,12 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.REACT_APP_SUPABASE_URL || '',
+  process.env.REACT_APP_SUPABASE_ANON_KEY || ''
+);
 
 const TheKindnessApp: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
+  const [email, setEmail] = useState('');
+  const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleSubscribe = async () => {
+    if (!email) {
+      setStatusMessage('Please enter your email address');
+      setSubscriptionStatus('error');
+      return;
+    }
+
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setStatusMessage('Please enter a valid email address');
+      setSubscriptionStatus('error');
+      return;
+    }
+
+    setSubscriptionStatus('loading');
+
+    try {
+      const { error } = await supabase
+        .from('subscriptions')
+        .insert([
+          { email, subscribedto: 'TheKindnessApp' }
+        ]);
+
+      if (error) {
+        if (error.code === '23505') { // Unique violation error code
+          setStatusMessage('This email is already subscribed!');
+          setSubscriptionStatus('error');
+        } else {
+          setStatusMessage('Something went wrong. Please try again.');
+          setSubscriptionStatus('error');
+        }
+        return;
+      }
+
+      setStatusMessage('Thank you for subscribing to The Kindness App updates!');
+      setSubscriptionStatus('success');
+      setEmail('');
+    } catch (error) {
+      setStatusMessage('An unexpected error occurred. Please try again.');
+      setSubscriptionStatus('error');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -14,9 +65,9 @@ const TheKindnessApp: React.FC = () => {
       <header className="bg-white shadow-sm fixed w-full z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <Link to="/" className="flex items-center">
+            <Link to="/" onClick={() => window.scrollTo(0, 0)} className="flex items-center">
               <img src="/@LogoMakr-0RjNJq.png" alt="Wizer AI Logo" className="h-8" />
-              <img src="/@knidness-App.jpg" alt="The Kindness App Logo" className="h-8 ml-2" />
+              <img src="/@LogoMakr-7l5QvC.png" alt="The Kindness App Logo" className="h-8 ml-2" />
             </Link>
           </div>
           <div className="flex items-center space-x-8">
@@ -34,7 +85,7 @@ const TheKindnessApp: React.FC = () => {
                 element?.scrollIntoView({ behavior: 'smooth' });
               }} className="text-gray-600 hover:text-gray-900 cursor-pointer">How It Works</button>
             </nav>
-            <Link to="/">
+            <Link to="/" onClick={() => window.scrollTo(0, 0)}>
               <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition duration-300 ease-in-out cursor-pointer !rounded-button whitespace-nowrap">
                 Go Home
               </button>
@@ -211,7 +262,7 @@ const TheKindnessApp: React.FC = () => {
                     <div className="md:w-12 mx-auto md:mx-0 flex justify-center">
                       <div className="bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl shadow-lg">1</div>
                     </div>
-                    <div className="md:w-1/2 md:pl-12 hidden md:block">
+                    <div className="md:w-1/2 md:pl-12 md:text-right hidden md:block">
                       <img
                         src="https://readdy.ai/api/search-image?query=A%20person%20making%20an%20online%20donation%20on%20a%20smartphone%20app%20with%20a%20warm%20and%20friendly%20interface%20showing%20donation%20options%20for%20meals%20and%20other%20essentials%2C%20with%20a%20clean%20modern%20design%20on%20a%20simple%20background&width=300&height=200&seq=2&orientation=landscape"
                         alt="Donation process"
@@ -241,9 +292,9 @@ const TheKindnessApp: React.FC = () => {
                   {/* Step 3 */}
                   <div className="md:flex items-center mb-12">
                     <div className="md:w-1/2 mb-6 md:mb-0 md:pr-12 md:text-right">
-                      <h3 className="text-xl font-bold mb-3">AI Optimizes Distribution</h3>
+                      <h3 className="text-xl font-bold mb-3">Preparation of Items</h3>
                       <p className="text-gray-700">
-                        Our intelligent system coordinates pickup and delivery routes to ensure efficient distribution of resources.
+                        Businesses prepare nutritious meals or gather requested items according to community needs and dietary requirements.
                       </p>
                     </div>
                     <div className="md:w-12 mx-auto md:mx-0 flex justify-center">
@@ -251,8 +302,8 @@ const TheKindnessApp: React.FC = () => {
                     </div>
                     <div className="md:w-1/2 md:pl-12 hidden md:block">
                       <img
-                        src="https://static.readdy.ai/image/7d8beb85d8ebd3e9bf548cb44f2d5616/3f9d4c1b1b7d9d6f9d6f9d6f9d6f9d6f.jpeg"
-                        alt="AI-powered distribution"
+                        src="/images/makefood.jpg"
+                        alt="Food preparation showing chefs preparing meals in containers"
                         className="rounded-lg shadow-lg w-full"
                       />
                     </div>
@@ -261,8 +312,8 @@ const TheKindnessApp: React.FC = () => {
                   <div className="md:flex items-center">
                     <div className="md:w-1/2 mb-6 md:mb-0 md:pr-12 hidden md:block">
                       <img
-                        src="https://readdy.ai/api/search-image?query=A%20heartwarming%20scene%20of%20food%20being%20delivered%20to%20grateful%20recipients%2C%20showing%20the%20positive%20impact%20of%20the%20donation%20program%2C%20with%20warm%20lighting%20and%20genuine%20human%20connection%2C%20on%20a%20simple%20background&width=300&height=200&seq=5&orientation=landscape"
-                        alt="Recipients receive help"
+                        src="/images/Delivery.jpg"
+                        alt="Delivery showing people receiving packages at their doorstep"
                         className="rounded-lg shadow-lg w-full"
                       />
                     </div>
@@ -270,9 +321,9 @@ const TheKindnessApp: React.FC = () => {
                       <div className="bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl shadow-lg">4</div>
                     </div>
                     <div className="md:w-1/2 md:pl-12">
-                      <h3 className="text-xl font-bold mb-3">Recipients Receive Help</h3>
+                      <h3 className="text-xl font-bold mb-3">Delivery to Recipients</h3>
                       <p className="text-gray-700">
-                        Those in need receive essential items with dignity and respect, strengthening community bonds and fostering hope.
+                        Using AI-optimized routes, items are delivered to registered recipients efficiently, ensuring they arrive fresh and on time.
                       </p>
                     </div>
                   </div>
@@ -283,18 +334,49 @@ const TheKindnessApp: React.FC = () => {
         </section>
       </div>
 
+      {/* Stay Connected Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-4">Stay Connected</h2>
+            <p className="text-gray-600 mb-8">
+              Subscribe to our newsletter to receive updates on our impact, stories from the community, and ways you can help.
+            </p>
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center w-full">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="px-4 py-2 rounded-lg border border-gray-300 flex-grow max-w-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+                <button
+                  onClick={handleSubscribe}
+                  disabled={subscriptionStatus === 'loading'}
+                  className={`bg-indigo-600 text-white px-8 py-2 rounded-lg hover:bg-indigo-700 transition duration-300 ease-in-out ${
+                    subscriptionStatus === 'loading' ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
+                >
+                  {subscriptionStatus === 'loading' ? 'Subscribing...' : 'Subscribe'}
+                </button>
+              </div>
+              {statusMessage && (
+                <p className={`text-sm ${
+                  subscriptionStatus === 'success' ? 'text-green-600' : 'text-red-600'
+                }`}>
+                  {statusMessage}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center mb-4">
-                <img src="https://static.readdy.ai/image/7d8beb85d8ebd3e9bf548cb44f2d5616/053d7dcdb45e8c6d6f0bacab19090caa.png" alt="Wizer AI Logo" className="h-8" />
-              </div>
-              <p className="text-gray-400">
-                Technology in service of humanity, never the other way around.
-              </p>
-            </div>
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h3 className="font-semibold text-lg mb-4">Products</h3>
               <ul className="space-y-2">
@@ -304,28 +386,27 @@ const TheKindnessApp: React.FC = () => {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-4">Company</h3>
+              <h3 className="text-lg font-semibold mb-4">Company</h3>
               <ul className="space-y-2">
-                <li><Link to="/#about-us" className="text-gray-400 hover:text-white cursor-pointer">About Us</Link></li>
-                <li><Link to="/vision-2030" className="text-gray-400 hover:text-white cursor-pointer">Our Vision</Link></li>
+                <li><Link to="/vision-2030" className="hover:text-indigo-400">Vision 2030</Link></li>
+                <li><Link to="/#products" className="hover:text-indigo-400">Our Products</Link></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-lg mb-4">Connect</h3>
-              <div className="flex space-x-4 mb-4">
-                <a href="https://x.com/Wizer_AI_Sol" data-readdy="true" className="text-gray-400 hover:text-white text-xl cursor-pointer"><i className="fab fa-twitter"></i></a>
-                <a href="https://www.linkedin.com/in/wizer-ai-20ab6035b/" data-readdy="true" className="text-gray-400 hover:text-white text-xl cursor-pointer"><i className="fab fa-linkedin"></i></a>
-                <a href="#" className="text-gray-400 hover:text-white text-xl cursor-pointer"><i className="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/profile.php?id=61575261149514" data-readdy="true" className="text-gray-400 hover:text-white text-xl cursor-pointer"><i className="fab fa-facebook"></i></a>
-              </div>
-              <p className="text-gray-400">
-                Sign up for our newsletter to stay updated on our latest innovations.
-              </p>
+              <h3 className="text-lg font-semibold mb-4">Connect</h3>
+              <ul className="space-y-2">
+                <li><a href="https://www.facebook.com/wizerai" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400">Facebook</a></li>
+                <li><a href="https://www.linkedin.com/company/wizer-ai" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400">LinkedIn</a></li>
+                <li><a href="https://twitter.com/wizer_ai" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-400">Twitter</a></li>
+              </ul>
+            </div>
+            <div>
+              <img src="/@LogoMakr-0RjNJq.png" alt="Wizer AI Logo" className="h-8 mb-4" />
+              <p className="text-sm text-gray-400">Harnessing AI for Human Connection, Not Replacement</p>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
+          <div className="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-400">
             <p>&copy; {new Date().getFullYear()} Wizer AI. All rights reserved.</p>
-            <p className="mt-2">Monday, April 14, 2025</p>
           </div>
         </div>
       </footer>

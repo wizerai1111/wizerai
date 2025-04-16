@@ -22,7 +22,7 @@ const AskTheGuru: React.FC = () => {
           <div className="flex items-center space-x-4">
             <Link to="/" className="flex items-center">
               <img src="/@LogoMakr-0RjNJq.png" alt="Wizer AI Logo" className="h-8" />
-              <img src="/@LogoMakr-7l5QvC.png" alt="Ask The Guru Logo" className="h-8 ml-2" />
+              <img src="/@LogoMakr-269pom.png" alt="Ask The Guru Logo" className="h-8 ml-2" />
             </Link>
           </div>
           <nav className="hidden md:flex space-x-8">
@@ -355,7 +355,7 @@ const AskTheGuru: React.FC = () => {
             <div className="grid md:grid-cols-4 gap-8">
               <div>
                 <div className="flex items-center mb-4">
-                  <img src="/@LogoMakr-7l5QvC.png" alt="Ask The Guru Logo" className="h-8" />
+                  <img src="https://static.readdy.ai/image/7d8beb85d8ebd3e9bf548cb44f2d5616/053d7dcdb45e8c6d6f0bacab19090caa.png" alt="Wizer AI Logo" className="h-8" />
                 </div>
                 <p className="text-gray-400">
                   Technology in service of humanity, never the other way around.
@@ -372,7 +372,7 @@ const AskTheGuru: React.FC = () => {
               <div>
                 <h3 className="font-semibold text-lg mb-4">Company</h3>
                 <ul className="space-y-2">
-                  <li><Link to="/#about-us" className="text-gray-400 hover:text-white cursor-pointer">About Us</Link></li>
+                  <li><Link to="#about-us" className="text-gray-400 hover:text-white cursor-pointer">About Us</Link></li>
                   <li><Link to="/vision-2030" className="text-gray-400 hover:text-white cursor-pointer">Our Vision</Link></li>
                 </ul>
               </div>
