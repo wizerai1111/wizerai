@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import Vision2030 from './pages/Vision2030';
 import AskTheGuru from './pages/AskTheGuru';
 import Essence from './pages/Essence';
-import ProductDetails from './pages/ProductDetails';
+import TheKindnessApp from './pages/TheKindnessApp';
 import BlogPost from './pages/BlogPost';
 import CMSBlog from './pages/CMSBlog';
 import AdminDashboard from './pages/AdminDashboard';
@@ -23,7 +23,7 @@ const App: React.FC = () => {
             <Route path="/vision-2030" element={<Vision2030 />} />
             <Route path="/ask-the-guru" element={<AskTheGuru />} />
             <Route path="/essence" element={<Essence />} />
-            <Route path="/product-details" element={<ProductDetails />} />
+            <Route path="/the-kindness-app" element={<TheKindnessApp />} />
             <Route path="/blog-post" element={<BlogPost />} />
             <Route path="/cms-blog" element={<CMSBlog />} />
             <Route path="/admin" element={<AdminDashboard />} />

@@ -215,7 +215,7 @@ const Home: React.FC = () => {
                 <div className="p-6">
                   <h3 className="font-bold text-lg mb-2">The Kindness App</h3>
                   <p className="text-gray-700 text-sm mb-4">Optimizes charitable food distribution through AI-powered scheduling and routing, ensuring resources reach those who need them most efficiently.</p>
-                  <a href="#" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center">Learn more <span className="ml-1">→</span></a>
+                  <Link to="/the-kindness-app" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center">Learn more <span className="ml-1">→</span></Link>
                 </div>
               </div>
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -223,7 +223,7 @@ const Home: React.FC = () => {
                 <div className="p-6">
                   <h3 className="font-bold text-lg mb-2">Ask The Guru</h3>
                   <p className="text-gray-700 text-sm mb-4">A knowledge platform connecting ancient wisdom with modern questions using advanced vector database technology to preserve cultural heritage.</p>
-                  <a href="#" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center">Learn more <span className="ml-1">→</span></a>
+                  <Link to="/ask-the-guru" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center">Learn more <span className="ml-1">→</span></Link>
                 </div>
               </div>
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -231,7 +231,7 @@ const Home: React.FC = () => {
                 <div className="p-6">
                   <h3 className="font-bold text-lg mb-2">Essense</h3>
                   <p className="text-gray-700 text-sm mb-4">Preserves personal stories and wisdom for future generations through thoughtful questionnaires and responsive memory systems.</p>
-                  <a href="#" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center">Learn more <span className="ml-1">→</span></a>
+                  <Link to="/essence" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center">Learn more <span className="ml-1">→</span></Link>
                 </div>
               </div>
             </div>
