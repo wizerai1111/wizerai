@@ -50,4 +50,8 @@ npm run build
 - Modern UI/UX
 - SEO-friendly
 - Fast loading times
-- Accessible components 
+- Accessible components
+
+## Deployment
+
+Last deployment: 2024-04-16 
