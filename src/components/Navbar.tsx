@@ -1,73 +1,57 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useForm } from '../context/FormContext';
 
 const Navbar: React.FC = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { setShowPartnershipForm } = useForm();
 
   const handleSectionClick = (sectionId: string) => {
-    if (location.pathname === '/') {
-      // If we're on the home page, scroll to the section
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        // Update URL without page reload
-        window.history.pushState(null, '', `#${sectionId}`);
-      }
-    } else {
-      // If we're on another page, navigate to home with hash
-      navigate(`/#${sectionId}`);
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <header className="bg-white shadow-sm fixed w-full top-0 z-50">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center">
-          <Link to="/">
-            <img 
-              src="https://static.readdy.ai/image/7d8beb85d8ebd3e9bf548cb44f2d5616/053d7dcdb45e8c6d6f0bacab19090caa.png" 
-              alt="Wizer AI Logo" 
-              className="h-8" 
-            />
-          </Link>
-        </div>
-        <div className="flex items-center space-x-8">
-          <nav className="hidden md:flex space-x-8 items-center">
-            <button 
-              onClick={() => handleSectionClick('about-us')}
-              className="text-gray-600 hover:text-gray-900 cursor-pointer"
-            >
-              About
-            </button>
-            <button 
+    <nav className="bg-white shadow-lg fixed w-full z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex">
+            <div className="flex-shrink-0 flex items-center">
+              <Link to="/" className="text-2xl font-bold text-gray-800">
+                Wizer AI
+              </Link>
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <button
               onClick={() => handleSectionClick('products')}
-              className="text-gray-600 hover:text-gray-900 cursor-pointer"
+              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
             >
               Products
             </button>
-            <button 
-              onClick={() => handleSectionClick('contact-form')}
-              className="text-gray-600 hover:text-gray-900 cursor-pointer"
+            <button
+              onClick={() => handleSectionClick('about')}
+              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
             >
-              Contact
+              About
             </button>
-            <Link 
-              to="/blog-post" 
-              className="text-gray-600 hover:text-gray-900 cursor-pointer"
+            <Link
+              to="/vision-2030"
+              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
             >
-              Blog
+              Vision 2030
             </Link>
-          </nav>
-          <Link 
-            to="/contact"
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition duration-300 ease-in-out cursor-pointer !rounded-button whitespace-nowrap"
-          >
-            Partner with Us
-          </Link>
+            <button
+              onClick={() => setShowPartnershipForm(true)}
+              className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
+            >
+              Partner with Us
+            </button>
+          </div>
         </div>
       </div>
-    </header>
+    </nav>
   );
 };
 
