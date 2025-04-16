@@ -3,6 +3,12 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import useScrollToTop from '../hooks/useScrollToTop';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.REACT_APP_SUPABASE_URL!,
+  process.env.REACT_APP_SUPABASE_ANON_KEY!
+);
 
 const Home: React.FC = () => {
   useScrollToTop();
@@ -39,6 +45,37 @@ const Home: React.FC = () => {
       section.scrollIntoView({ behavior: 'smooth' });
       // Update URL without page reload
       window.history.pushState(null, '', `#${sectionId}`);
+    }
+  };
+
+  const [form, setForm] = React.useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    company: '',
+    subject: '',
+    message: '',
+  });
+  const [loading, setLoading] = React.useState(false);
+  const [success, setSuccess] = React.useState('');
+  const [error, setError] = React.useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccess('');
+    setError('');
+    const { error } = await supabase.from('contact_submissions').insert([form]);
+    setLoading(false);
+    if (error) {
+      setError('There was an error submitting the form. Please try again.');
+    } else {
+      setSuccess('Thank you for contacting us!');
+      setForm({ first_name: '', last_name: '', email: '', company: '', subject: '', message: '' });
     }
   };
 
@@ -233,7 +270,7 @@ const Home: React.FC = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Contact Us</h2>
           <div className="max-w-2xl mx-auto">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 mb-1">
@@ -242,7 +279,9 @@ const Home: React.FC = () => {
                   <input
                     type="text"
                     id="first-name"
-                    name="first-name"
+                    name="first_name"
+                    value={form.first_name}
+                    onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                     required
                   />
@@ -254,7 +293,9 @@ const Home: React.FC = () => {
                   <input
                     type="text"
                     id="last-name"
-                    name="last-name"
+                    name="last_name"
+                    value={form.last_name}
+                    onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                     required
                   />
@@ -268,6 +309,8 @@ const Home: React.FC = () => {
                   type="email"
                   id="email"
                   name="email"
+                  value={form.email}
+                  onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                   required
                 />
@@ -280,8 +323,29 @@ const Home: React.FC = () => {
                   type="text"
                   id="company"
                   name="company"
+                  value={form.company}
+                  onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                 />
+              </div>
+              <div>
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+                  Subject
+                </label>
+                <select
+                  id="subject"
+                  name="subject"
+                  value={form.subject}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                  required
+                >
+                  <option value="">Select a subject</option>
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Support">Support</option>
+                  <option value="Feedback">Feedback</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
@@ -290,17 +354,22 @@ const Home: React.FC = () => {
                 <textarea
                   id="message"
                   name="message"
+                  value={form.message}
+                  onChange={handleChange}
                   rows={4}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                   required
                 ></textarea>
               </div>
+              {success && <div className="text-green-600 font-medium">{success}</div>}
+              {error && <div className="text-red-600 font-medium">{error}</div>}
               <div>
                 <button
                   type="submit"
                   className="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md transition duration-300 ease-in-out font-medium cursor-pointer !rounded-button whitespace-nowrap"
+                  disabled={loading}
                 >
-                  Send Message
+                  {loading ? 'Sending...' : 'Send Message'}
                 </button>
               </div>
             </form>
