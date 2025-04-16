@@ -112,10 +112,10 @@ const Home: React.FC = () => {
                   </button>
                 </Link>
                 <button 
-                  onClick={() => scrollToSection('products')}
+                  onClick={() => document.getElementById('partnership-form')?.scrollIntoView({ behavior: 'smooth' })}
                   className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md transition duration-300 ease-in-out font-medium cursor-pointer !rounded-button whitespace-nowrap"
                 >
-                  View Our Projects
+                  Partner with Us
                 </button>
               </div>
             </div>
@@ -208,7 +208,7 @@ const Home: React.FC = () => {
         <section id="products" className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-4">Our Products</h2>
-            <p className="text-center text-gray-600 mb-10">We've developed a suite of solutions that demonstrate our vision of technology that amplifies humanity.</p>
+            <p className="text-center text-gray-600 mb-10">Stay tuned! We have more innovations coming soon that showcase our vision of technology that amplifies humanity.</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
                 <img src="/@knidness-App.jpg" alt="The Kindness App Logo" className="w-full h-40 object-cover" />
@@ -227,9 +227,9 @@ const Home: React.FC = () => {
                 </div>
               </div>
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="/@LogoMakr-7l5QvC.png" alt="Essense Logo" className="w-full h-40 object-contain bg-white" />
+                <img src="/@LogoMakr-7l5QvC.png" alt="Essence Logo" className="w-full h-40 object-contain bg-white" />
                 <div className="p-6">
-                  <h3 className="font-bold text-lg mb-2">Essense</h3>
+                  <h3 className="font-bold text-lg mb-2">Essence</h3>
                   <p className="text-gray-700 text-sm mb-4">Preserves personal stories and wisdom for future generations through thoughtful questionnaires and responsive memory systems.</p>
                   <Link to="/essence" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center">Learn more <span className="ml-1">→</span></Link>
                 </div>
