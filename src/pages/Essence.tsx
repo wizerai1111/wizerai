@@ -173,9 +173,9 @@ const Essence: React.FC = () => {
               <h1 className="text-5xl font-bold mb-6 leading-tight">Preserve Your Legacy Through AI</h1>
               <p className="text-xl mb-8">Essence captures what makes someone truly them — their voice, presence, perspective, and spirit — so they can be remembered, shared, and even spoken with long into the future.</p>
               <div className="flex flex-wrap gap-4">
-                <a href="https://readdy.ai/home/1ff97779-4f5a-4592-b376-399bc1f4d447/67b02fde-aeae-41e0-9c36-4f4372e6032d" data-readdy="true">
+                <Link to="/">
                   <button className="bg-white text-indigo-700 px-8 py-3 rounded-md shadow-lg hover:bg-gray-100 transition font-semibold !rounded-button cursor-pointer whitespace-nowrap">Go back home</button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

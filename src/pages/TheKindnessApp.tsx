@@ -99,7 +99,7 @@ const TheKindnessApp: React.FC = () => {
                 setIsMobileMenuOpen(false);
               }} className="text-gray-600 hover:text-gray-900 cursor-pointer">How It Works</button>
             </nav>
-            <Link to="/" onClick={() => window.scrollTo(0, 0)}>
+            <Link to="/">
               <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition duration-300 ease-in-out cursor-pointer !rounded-button whitespace-nowrap">
                 Go Home
               </button>
@@ -141,7 +141,7 @@ const TheKindnessApp: React.FC = () => {
               >
                 How It Works
               </button>
-              <Link to="/" onClick={() => window.scrollTo(0, 0)} className="block">
+              <Link to="/">
                 <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition duration-300 ease-in-out cursor-pointer !rounded-button">
                   Go Home
                 </button>

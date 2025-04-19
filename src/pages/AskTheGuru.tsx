@@ -135,11 +135,11 @@ const AskTheGuru: React.FC = () => {
                 Rather than offering advice or opinions, the Guru simply listens — and then shares how others have spoken about your question through the ages.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="https://readdy.ai/home/1ff97779-4f5a-4592-b376-399bc1f4d447/67b02fde-aeae-41e0-9c36-4f4372e6032d" data-readdy="true">
+                <Link to="/">
                   <button className="bg-amber-600 text-white px-8 py-3 rounded-lg hover:bg-amber-700 transition-colors text-lg !rounded-button whitespace-nowrap cursor-pointer">
                     Go back home
                   </button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -396,11 +396,11 @@ const AskTheGuru: React.FC = () => {
               </p>
             </div>
             <div className="mt-16">
-              <a href="https://readdy.ai/home/1ff97779-4f5a-4592-b376-399bc1f4d447/67b02fde-aeae-41e0-9c36-4f4372e6032d" data-readdy="true">
+              <Link to="/">
                 <button className="bg-amber-600 text-white px-8 py-3 rounded-lg hover:bg-amber-700 transition-colors text-lg !rounded-button whitespace-nowrap cursor-pointer">
                   Go back home
                 </button>
-              </a>
+              </Link>
             </div>
           </div>
         </section>
